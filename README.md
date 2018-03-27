@@ -1,5 +1,7 @@
 # TestGoReleaser
 
+[![Build Status](https://travis-ci.org/fractalbach/TestGoReleaser.svg?branch=master)](https://travis-ci.org/fractalbach/TestGoReleaser)
+
 Experiment with automatic building and deploying and stuff.
 
 
@@ -31,3 +33,20 @@ Experiment with automatic building and deploying and stuff.
 
 
 
+# Git Tags
+
+- Check your of your current tags like this:
+
+    ~~~
+    git tag
+    ~~~
+
+
+
+- Making a new *Annotated Tag* looks something this:
+
+    ~~~
+    git tag -a v1.4 -m "my version 1.4"
+    ~~~
+
+    then push the repo.
