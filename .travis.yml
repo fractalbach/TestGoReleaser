@@ -1,21 +1,25 @@
+# .travis.yml
 language: go
-go:
-  - "1.10"
 
 addons:
   apt:
     packages:
-      - rpm
-      - snapcraft
+    # needed for the nfpm pipe:
+    - rpm
+    # needed for the snap pipe:
+    - snapcraft
 
 env:
-  - PATH=/snap/bin:$PATH
+# needed for the snap pipe:
+- PATH=/snap/bin:$PATH
 
 install:
-  - sudo snap install snapcraft --clasic
+# needed for the snap pipe:
+- sudo snap install snapcraft --classic
 
+# calls goreleaser
 deploy:
-  - provider: script
+- provider: script
   skip_cleanup: true
   script: curl -sL http://git.io/goreleaser | bash
   on:
