@@ -1,0 +1,21 @@
+language: go
+
+addons:
+  apt:
+    packages:
+      - rpm
+      - snapcraft
+
+env:
+  - PATH=/snap/bin:$PATH
+
+install:
+  - sudo snap install snapcraft --clasic
+
+deploy:
+  - provider: script
+  skip_cleanup: true
+  script: curl -sL http://git.io/goreleaser | bash
+  on:
+    tags: true
+    condition: $TRAVIS_OS_NAME = linux

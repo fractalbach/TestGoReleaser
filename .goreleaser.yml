@@ -1,5 +1,7 @@
 builds:
-  - main: main.go
+
+  -
+    main: main.go
     binary: TestGoReleaser
     goos:
       - windows
@@ -7,16 +9,40 @@ builds:
       - linux
     goarch:
       - amd64
+      - arm
+      - arm64
+    goarm:
+      - 6
+      - 7
+
 
 archive:
   format: tar.gz
   replacements:
-    amd64: 64-bit
-    darwin: mac0S
-    linux: Tux
+    amd64: x64bit
+    darwin: Mac0S
+    linux: Linux
   files:
     - extraFile.txt
 
-env_files:
-  github_token: ~/Documents/Github/TOKENZ/forGoRelease
 
+
+env_files:
+  github_token: $GITHUB_TOKEN
+
+
+# snapcraft:
+#   name: TestGoReleaser
+#   summary: A great experiment. 79 char.
+#   description: |
+#     Extended description with 100 words-ish.
+#   replacements:
+#     amd64: x64bit
+#     darwin: Mac0S
+#     linux: Linux
+
+#     # https://snapcraft.io/docs/reference/channels
+#     grade: stable
+
+#     # https://snapcraft.io/docs/reference/confinement
+#     confinement: strict
