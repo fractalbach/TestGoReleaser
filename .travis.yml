@@ -3,9 +3,6 @@ language: go
 go:
   - "1.10"
 
-before_install:
-  - go get github.com/goreleaser/goreleaser
-
 # calls goreleaser
 deploy:
 - provider: script
