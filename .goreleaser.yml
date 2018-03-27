@@ -17,3 +17,6 @@ archive:
   files:
     - extraFile.txt
 
+env_files:
+  github_token: ~/Documents/Github/TOKENZ/forGoRelease
+
