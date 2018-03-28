@@ -21,7 +21,7 @@ go: "1.10"
 #   - gox -os "$OS_TARGETS" -arch="$ARCH_TARGETS"
 
 
-# before_deploy:
+before_deploy:
    - go get github.com/mitchellh/gox
    - gox 
 
