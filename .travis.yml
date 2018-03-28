@@ -15,9 +15,11 @@ go: "1.10"
 
 before_deploy:
   - export OS_TARGETS="linux darwin windows"
-  - export ARCH_TARGETS="arm6 arm7 amd64"
+  - export ARCH_TARGETS="arm amd64"
+  - export GOARM="6 7"
   - go get github.com/mitchellh/gox
   - gox -os "$OS_TARGETS" -arch="$ARCH_TARGETS"
+
 
 deploy:
   provider: releases
