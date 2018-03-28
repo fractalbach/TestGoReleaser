@@ -1,13 +1,31 @@
 # .travis.yml
 language: go
-go:
-  - "1.10"
+go: "1.10"
+
 
 # calls goreleaser
+# deploy:
+# - provider: script
+#   skip_cleanup: true
+#   script: curl -sL http://git.io/goreleaser | bash
+#   on:
+#     tags: true
+#     condition: $TRAVIS_OS_NAME = linux
+
+
+before_deploy:
+  - export OS_TARGETS="linux darwin windows"
+  - export ARCH_TARGETS="arm6 arm7 amd64"
+  - go get github.com/mitchellh/gox
+  - gox -os "$OS_TARGETS" -arch="$ARCH_TARGETS"
+
 deploy:
-- provider: script
+  provider: releases
+  api_key: $GITHUB_TOKEN
   skip_cleanup: true
-  script: curl -sL http://git.io/goreleaser | bash
-  on:
-    tags: true
-    condition: $TRAVIS_OS_NAME = linux
+  file: 
+    - "TestGoReleaser_darwin_amd64"
+    - "TestGoReleaser_windows_amd64.exe"
+    - "TestGoReleaser_linux_amd64"
+    - "TestGoReleaser_linux_arm6"
+    - "TestGoReleaser_linux_arm7"
