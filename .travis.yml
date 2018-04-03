@@ -20,10 +20,19 @@ go: "1.10"
 #   - go get github.com/mitchellh/gox
 #   - gox -os "$OS_TARGETS" -arch="$ARCH_TARGETS"
 
+env:
+  - GOARCH=amd64
+  - GOARCH=arm7
+  - GOARCH=arm6
 
-before_deploy:
-   - go get github.com/mitchellh/gox
-   - gox 
+env:
+  - GOOS=windows 
+  - GOOS=linux
+  - GOOS=darwin
+
+# before_deploy:
+#    - go get github.com/mitchellh/gox
+#    - gox 
 
 deploy:
   provider: releases
