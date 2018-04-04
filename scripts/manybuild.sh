@@ -24,9 +24,19 @@ ADIR="archives"
 AMD64_LIST="windows linux darwin"
 ARM_LIST="6 7"
 
+
+
+# Check for empty fields.
 # If Project name is omitted, it will default to current directory name.
+# If the project field is still empty somehow, then return an error.
+
 if [[ "${1}" = "" ]]; then
     PROJECT=${PWD##*/}
+fi
+
+if [[ "${PROJECT}" = "" ]]; then
+    echo "Error: No Project Name detected."
+    return
 fi
 
 # -----------------------------------------------------------------------
@@ -52,7 +62,7 @@ function buildMe {
     local OutputPath=""
 
     # Windows requires the file extension ".exe" at the end of the file-path.
-    #
+    
     if [[ "$OS" = "windows" ]]; then
         local EXT=".exe"
     fi
@@ -63,6 +73,10 @@ function buildMe {
     local FILENAME=${PROJECT}_${OS}_${ARCH}${ARM}
     local OutputPath=${DIR}/${FILENAME}${EXT}
     local ArchivePath=${DIR}/${ADIR}/${FILENAME}".tar.gz"
+
+    echo Filename = $FILENAME 
+    echo Output = $OutputPath 
+    echo Archive = $ArchivePath
 
     # Check for any missing arguments, or anything that might prevent 
     # the program from building correctly.

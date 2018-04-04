@@ -72,5 +72,5 @@ deploy:
   api_key: $GITHUB_TOKEN
   file_glob: true
   skip_cleanup: true
-  file: releases/archives*
+  file: releases/archives/*
   
