@@ -8,7 +8,8 @@
 # 
 #
 #   DIR:            The target directory where the builds will go.
-#   PROJECT:        The name of the file, and its zipped container.
+#   ADIR:           Archive Directory for FILENAME_OS_ARCH.tar.gz
+#   PROJECT:        The project name will become the FILENAME prefix.
 #       
 #   AMD64_LIST:     Names of operating systems for amd64 architecture.
 #   ARM_LIST:       All Linux, the versions of arm architecture.
@@ -19,8 +20,14 @@
 
 PROJECT=${1}
 DIR="releases"
+ADIR="archives"
 AMD64_LIST="windows linux darwin"
 ARM_LIST="6 7"
+
+# If Project name is omitted, it will default to current directory name.
+if [[ "${1}" = "" ]]; then
+    PROJECT=${PWD##*/}
+fi
 
 # -----------------------------------------------------------------------
 # Function Definitions
@@ -53,8 +60,9 @@ function buildMe {
 
     # Create a unique and descriptive file-path for the binary file.
     
-    local OutputPath=${DIR}/${PROJECT}_${OS}_${ARCH}${ARM}${EXT}
-
+    local FILENAME=${PROJECT}_${OS}_${ARCH}${ARM}
+    local OutputPath=${DIR}/${FILENAME}${EXT}
+    local ArchivePath=${DIR}/${ADIR}/${FILENAME}".tar.gz"
 
     # Check for any missing arguments, or anything that might prevent 
     # the program from building correctly.
@@ -68,7 +76,7 @@ function buildMe {
     # Run the "go build" command under the customized environment.
     
     env GOOS=${OS} ARCH=${ARCH} GOARM=${ARM} go build -v -o ${OutputPath}
-
+    tar -czf $ArchivePath $OutputPath
 }
 
 
@@ -95,6 +103,11 @@ function RunMyCustomBuild {
     echo "Custom Compile Script has Finished."
 }
 
+
+
+# ------------------------------------------------------------------
+mkdir ${DIR}
+mkdir ${DIR}/${ADIR}
 RunMyCustomBuild
 # ------------------------------------------------------------------
 

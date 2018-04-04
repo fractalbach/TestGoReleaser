@@ -59,11 +59,12 @@ go: "1.10"
 # -------------------------------------------------
 
 before_deploy:
+  - export MY_PACKAGE_NAME="HelloWorld"
   - git config --local user.name $GITHUB_USER
   - git config --local user.email $GITHUB_EMAIL
-  - git tag "HelloWorld_Build_${TRAVIS_BUILD_NUMBER}"
+  - git tag "${MY_PACKAGE_NAME}_Build_${TRAVIS_BUILD_NUMBER}"
   - cd ${TRAVIS_BUILD_DIR}
-  - chmod +x scripts/manybuild.sh
+  - chmod +rx scripts/manybuild.sh
   - ./scripts/manybuild.sh $MY_PACKAGE_NAME
 
 deploy:
