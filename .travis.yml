@@ -61,7 +61,7 @@ go: "1.10"
 before_deploy:
   - git config --local user.name $GITHUB_USER
   - git config --local user.email $GITHUB_EMAIL
-  - git tag "HelloWorld-Build-${TRAVIS_BUILD_NUMBER}"
+  - git tag "HelloWorld_Build_${TRAVIS_BUILD_NUMBER}"
   - cd ${TRAVIS_BUILD_DIR}
   - chmod +x scripts/manybuild.sh
   - ./scripts/manybuild.sh $MY_PACKAGE_NAME
