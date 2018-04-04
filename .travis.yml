@@ -58,16 +58,11 @@ go: "1.10"
 # Custom Bash Script
 # -------------------------------------------------
 
-env:
-  global:
-    - MY_PACKAGE_NAME="HelloWorld"
-
-after_success:
+before_deploy:
+  - export MY_PACKAGE_NAME="HelloWorld"
   - git config --local user.name $GITHUB_USER
   - git config --local user.email $GITHUB_EMAIL
   - git tag "${MY_PACKAGE_NAME}_Build_${TRAVIS_BUILD_NUMBER}"
-
-before_deploy:
   - cd ${TRAVIS_BUILD_DIR}
   - chmod +rx scripts/manybuild.sh
   - ./scripts/manybuild.sh $MY_PACKAGE_NAME
@@ -78,4 +73,6 @@ deploy:
   file_glob: true
   skip_cleanup: true
   file: releases/archives*
+  on:
+    condition: $TRAVIS_OS_NAME = linux  
   
