@@ -2,8 +2,10 @@
 language: go
 go: "1.10"
 
+# _____________________________________________________
+# For use with Go Releaser
+# -------------------------------------------------
 
-# calls goreleaser
 # deploy:
 # - provider: script
 #   skip_cleanup: true
@@ -13,6 +15,11 @@ go: "1.10"
 #     condition: $TRAVIS_OS_NAME = linux
 
 
+
+# _____________________________________________________
+# For use with GOX
+# -------------------------------------------------
+
 # before_deploy:
 #   - export OS_TARGETS="linux darwin windows"
 #   - export ARCH_TARGETS="arm amd64"
@@ -20,7 +27,16 @@ go: "1.10"
 #   - go get github.com/mitchellh/gox
 #   - gox -os "$OS_TARGETS" -arch="$ARCH_TARGETS"
 
-# global: 
+
+
+# _____________________________________________________
+# For use with Travis Build Matrix
+# -------------------------------------------------
+#
+#   (restarts travis into multiple build jobs)
+#   (not recommended)
+#
+# -------------------------------------------------
 
 # env:
 #   - GOOS=windows  GOARCH=amd64
@@ -34,13 +50,23 @@ go: "1.10"
 #    - gox 
 
 
+
+
+
+# _____________________________________________________
+# 
+# -------------------------------------------------
+
+global:
+  - MY_PACKAGE_NAME="HelloWorld"
+
 before_deploy:
   - git config --local user.name $GITHUB_USER
   - git config --local user.email $GITHUB_EMAIL
-  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+  - git tag "${MY_PACKAGE_NAME}-Build-${TRAVIS_BUILD_NUMBER}"
   - cd ${TRAVIS_BUILD_DIR}
   - chmod +x scripts/manybuild.sh
-  - ./scripts/manybuild.sh
+  - ./scripts/manybuild.sh $MY_PACKAGE_NAME
 
 deploy:
   provider: releases

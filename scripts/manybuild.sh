@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # -----------------------------------------------------------------------
+# USAGE:
+#                   manybuild.sh [Project Name]
+#
 # Customizations:
 # 
 #
@@ -13,8 +16,9 @@
 #
 # 
 
+
+PROJECT=${1}
 DIR="releases"
-PROJECT="HelloWorld"
 AMD64_LIST="windows linux darwin"
 ARM_LIST="6 7"
 
@@ -93,3 +97,4 @@ function RunMyCustomBuild {
 
 RunMyCustomBuild
 # ------------------------------------------------------------------
+
