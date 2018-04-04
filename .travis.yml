@@ -39,6 +39,7 @@ before_deploy:
   - git config --local user.name $GITHUB_USER
   - git config --local user.email $GITHUB_EMAIL
   - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+  - chmod +x /scripts/manybuild.sh
   - ./scripts/manybuild.sh
 
 deploy:
