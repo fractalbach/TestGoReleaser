@@ -73,4 +73,6 @@ deploy:
   file_glob: true
   skip_cleanup: true
   file: releases/archives/*
+  on:
+    condition: $TRAVIS_OS_NAME = linux
   
